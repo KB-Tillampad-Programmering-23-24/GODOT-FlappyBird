@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd5dcxqwjyjww"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_m41qu"]
+[ext_resource type="PackedScene" uid="uid://dyvurfwvhfn52" path="res://bird.tscn" id="2_axox5"]
+[ext_resource type="PackedScene" uid="uid://dt1qnnksxcnct" path="res://Pipe.tscn" id="2_y6fx4"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_m41qu")
+pipeScene = ExtResource("2_y6fx4")
+
+[node name="Bird" parent="." instance=ExtResource("2_axox5")]
+
+[node name="BirdSpawnPosition" type="Marker2D" parent="."]
+position = Vector2(400, 325)
+
+[node name="PipeSpawnPosition" type="Marker2D" parent="."]
+position = Vector2(1300, 325)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="AddScore" from="Bird" to="." method="OnAddScore"]
+[connection signal="BirdDied" from="Bird" to="." method="OnBirdDied"]
+[connection signal="timeout" from="Timer" to="." method="OnPipeSpawn"]
